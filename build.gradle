@@ -1,11 +1,49 @@
+//plugins {
+//	id 'java'
+//	id 'org.springframework.boot' version '4.1.0'
+//	id 'io.spring.dependency-management' version '1.1.7'
+//}
+//
+//group = 'com.phelim'
+//version = '0.0.1-SNAPSHOT'
+//
+//java {
+//	toolchain {
+//		languageVersion = JavaLanguageVersion.of(21)
+//	}
+//}
+//
+//repositories {
+//	mavenCentral()
+//}
+//
+//dependencies {
+//	implementation 'org.springframework.boot:spring-boot-starter'
+//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+//}
+//
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
+
+
+
+
+////////////////////
+
+//gradle 8.14.3
+
+
+import java.text.SimpleDateFormat
+
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '4.1.0'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-group = 'com.phelim'
-version = '0.0.1-SNAPSHOT'
+group = 'Phelim'
+version new Version('xxx')
 
 java {
 	toolchain {
@@ -17,12 +55,77 @@ repositories {
 	mavenCentral()
 }
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+ext {
+	vertxVersion = '4.5.7'
+	micrometerVersion = '1.12.5'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+dependencies {
+	implementation "io.vertx:vertx-core:$vertxVersion"
+	implementation "io.vertx:vertx-web:$vertxVersion"
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok:1.18.34'
+	annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+	// Logging
+	implementation 'org.slf4j:slf4j-api:2.0.13'
+	implementation 'ch.qos.logback:logback-classic:1.5.6'
+
+	// JSON
+	implementation 'com.google.code.gson:gson:2.8.1'
+//    implementation 'com.google.inject:guice:4.0'
+	implementation 'com.google.inject:guice:7.0.0'
+
+	// ===== Vert.x Metrics + Micrometer =====
+	implementation "io.vertx:vertx-micrometer-metrics:$vertxVersion"
+	implementation "io.micrometer:micrometer-registry-prometheus:$micrometerVersion"
+
+	//
+	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.12.1'
+	//
+	implementation group: 'org.json', name: 'json', version: '20211205'
+	//
+	implementation group: 'com.sun.jersey', name: 'jersey-client', version: '1.19.4'
+}
+
+shadowJar {
+	archiveClassifier.set('vertx-project')
+	archiveVersion.set(version.toString())
+
+	manifest {
+		attributes(
+				'Main-Class': 'io.vertx.core.Launcher',
+				'Main-Verticle': 'com.phelim.gateway_vertx_project.MainVerticle'
+		)
+	}
+
+	mergeServiceFiles {
+		include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
+	}
+
+	archiveFileName.set("${archiveClassifier.get()}-${archiveVersion.get()}.jar")
+
+	zip64 true
+}
+
+class Version {
+	String thisVersion
+	Date buildTime
+
+	Version(String versionValue) {
+		buildTime = new Date()
+		thisVersion = versionValue.replace('xxx', getTimestamp())
+	}
+
+	String getTimestamp() {
+		def format = new SimpleDateFormat('yyyyMMddHHmmss')
+		format.setCalendar(Calendar.getInstance(TimeZone.getTimeZone('Asia/Ho_Chi_Minh')))
+		return format.format(buildTime)
+	}
+
+
+	String toString() {
+		thisVersion
+	}
 }

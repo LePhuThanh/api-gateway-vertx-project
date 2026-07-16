@@ -1,0 +1,24 @@
+{
+  "idleTimeOut": 60,
+  "workerPoolSize": 2,
+  "workerMaxExecuteTime": 100,
+
+  "vertxHttpServer": {
+    "host": "0.0.0.0",
+    "port": 8080
+  },
+  "smsServiceConfig": {
+    "sendOtp": "ss.wsdl",
+    "getInfoUserSentOtp": "aa.wsdl",
+    "getDetailInfoUser": "bb.wsdl"
+  },
+  "httpServer": {
+    "host": "0.0.0.0",
+    "port": 8316
+  },
+
+  "cicConfig": {
+    "realtimeSrUrl": "https://xxx/ServiceGatewayApp/service/cicRealtimeSR.wsdl",
+    "realtimeB11tUrl": "https://yyy/ServiceGatewayApp/service/cicRealtimeB11T.wsdl"
+  }
+}

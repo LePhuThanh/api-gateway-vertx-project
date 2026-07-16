@@ -1,0 +1,65 @@
+//=======================================S11T==========================================
+http://localhost:8316/partner/cic/reports/relationship
+
+{
+  "token": "test-token-001",
+  "maSoPhieu": "3232323",
+  "maSP": "S11T",
+  "cccdHoChieu": "1111111111",
+  "msdn": null,
+  "tenKH": "Nguyễn Văn B",
+  "mucDich": "Tra cứu thông tin"
+}
+
+//=======================================S10T==========================================
+http://localhost:8316/partner/cic/reports/relationship
+
+{
+"token": "test-token-001",
+"maSoPhieu": "3232323",
+"maSP": "S10T",
+"cccdHoChieu": null,
+"msdn": "1111111111",
+"tenKH": "CÔNG TY A",
+"mucDich": "Tra cứu thông tin"
+}
+
+//=======================================R10T==========================================
+http://localhost:8316/partner/cic/reports/relationship
+
+{
+"token": "test-token-001",
+"maSoPhieu": "3232323",
+"maSP": "R10T",
+"cccdHoChieu": null,
+"msdn": "1111111111",
+"tenKH": "CÔNG TY A",
+"mucDich": "Tra cứu thông tin"
+}
+
+//=======================================R11T==========================================
+http://localhost:8316/partner/cic/reports/relationship
+
+{
+"token": "test-token-001",
+"maSoPhieu": "3232323",
+"maSP": "R11T",
+"cccdHoChieu": "1111111111",
+"msdn": null,
+"tenKH": "ĐOÀN DUY A",
+"mucDich": "Tra cứu thông tin"
+}
+
+//=======================================B11T==========================================
+http://localhost:8316/partner/cic/reports/basic
+
+{
+"token": "test-token-001",
+"maSoPhieu": "3232323",
+"maSP": "B11T",
+"cccdHoChieu": "123456789012",
+"msdn": null,
+"tenKH": "DOAN DUY A",
+"mucDich": "Phê duyệt tín dụng"
+}
+
